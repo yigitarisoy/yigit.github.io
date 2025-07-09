@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Yigit ARISOY</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
   <style>
     body { margin: 0; font-family: sans-serif; background: white; color: black; }
     header { display: flex; align-items: center; padding: 20px; font-size: 24px; font-weight: bold; justify-content: flex-start; }
@@ -11,12 +12,22 @@
     nav a { margin: 0 10px; text-decoration: none; color: black; font-size: 16px; transition: opacity 0.3s; }
     nav a:hover { opacity: 0.5; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; padding: 10px; }
+    .grid img { opacity: 0; transition: opacity 1s, filter 0.3s, transform 0.3s; }
+    .grid img.loaded { opacity: 1; }
     .grid img { width: 100%; height: auto; display: block; filter: grayscale(0%); transition: filter 0.3s, transform 0.3s; cursor: pointer; }
     .grid img:hover { filter: grayscale(100%); transform: scale(1.05); }
+    .grid img { box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
     .modal img { max-width: 90%; max-height: 90%; }
     .modal:target { display: flex; }
   </style>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.grid img').forEach(img => {
+      img.onload = () => img.classList.add('loaded');
+    });
+  });
+</script>
 </head>
 <body>
 
@@ -37,37 +48,37 @@
   <!-- Generate 31 thumbnails -->
   
   <!-- Start -->
-  <a href="#img1"><img src="images/your-image%20(1).jpg" alt="Photo 1"></a>
-  <a href="#img2"><img src="images/your-image%20(2).jpg" alt="Photo 2"></a>
-  <a href="#img3"><img src="images/your-image%20(3).jpg" alt="Photo 3"></a>
-  <a href="#img4"><img src="images/your-image%20(4).jpg" alt="Photo 4"></a>
-  <a href="#img5"><img src="images/your-image%20(5).jpg" alt="Photo 5"></a>
-  <a href="#img6"><img src="images/your-image%20(6).jpg" alt="Photo 6"></a>
-  <a href="#img7"><img src="images/your-image%20(7).jpg" alt="Photo 7"></a>
-  <a href="#img8"><img src="images/your-image%20(8).jpg" alt="Photo 8"></a>
-  <a href="#img9"><img src="images/your-image%20(9).jpg" alt="Photo 9"></a>
-  <a href="#img10"><img src="images/your-image%20(10).jpg" alt="Photo 10"></a>
-  <a href="#img11"><img src="images/your-image%20(11).jpg" alt="Photo 11"></a>
-  <a href="#img12"><img src="images/your-image%20(12).jpg" alt="Photo 12"></a>
-  <a href="#img13"><img src="images/your-image%20(13).jpg" alt="Photo 13"></a>
-  <a href="#img14"><img src="images/your-image%20(14).jpg" alt="Photo 14"></a>
-  <a href="#img15"><img src="images/your-image%20(15).jpg" alt="Photo 15"></a>
-  <a href="#img16"><img src="images/your-image%20(16).jpg" alt="Photo 16"></a>
-  <a href="#img17"><img src="images/your-image%20(17).jpg" alt="Photo 17"></a>
-  <a href="#img18"><img src="images/your-image%20(18).jpg" alt="Photo 18"></a>
-  <a href="#img19"><img src="images/your-image%20(19).jpg" alt="Photo 19"></a>
-  <a href="#img20"><img src="images/your-image%20(20).jpg" alt="Photo 20"></a>
-  <a href="#img21"><img src="images/your-image%20(21).jpg" alt="Photo 21"></a>
-  <a href="#img22"><img src="images/your-image%20(22).jpg" alt="Photo 22"></a>
-  <a href="#img23"><img src="images/your-image%20(23).jpg" alt="Photo 23"></a>
-  <a href="#img24"><img src="images/your-image%20(24).jpg" alt="Photo 24"></a>
-  <a href="#img25"><img src="images/your-image%20(25).jpg" alt="Photo 25"></a>
-  <a href="#img26"><img src="images/your-image%20(26).jpg" alt="Photo 26"></a>
-  <a href="#img27"><img src="images/your-image%20(27).jpg" alt="Photo 27"></a>
-  <a href="#img28"><img src="images/your-image%20(28).jpg" alt="Photo 28"></a>
-  <a href="#img29"><img src="images/your-image%20(29).jpg" alt="Photo 29"></a>
-  <a href="#img30"><img src="images/your-image%20(30).jpg" alt="Photo 30"></a>
-  <a href="#img31"><img src="images/your-image%20(31).jpg" alt="Photo 31"></a>
+ <a href="images/your-image%20(1).jpg" class="glightbox"><img src="images/your-image%20(1).jpg" alt="Photo 1"></a>
+<a href="images/your-image%20(2).jpg" class="glightbox"><img src="images/your-image%20(2).jpg" alt="Photo 2"></a>
+<a href="images/your-image%20(3).jpg" class="glightbox"><img src="images/your-image%20(3).jpg" alt="Photo 3"></a>
+<a href="images/your-image%20(4).jpg" class="glightbox"><img src="images/your-image%20(4).jpg" alt="Photo 4"></a>
+<a href="images/your-image%20(5).jpg" class="glightbox"><img src="images/your-image%20(5).jpg" alt="Photo 5"></a>
+<a href="images/your-image%20(6).jpg" class="glightbox"><img src="images/your-image%20(6).jpg" alt="Photo 6"></a>
+<a href="images/your-image%20(7).jpg" class="glightbox"><img src="images/your-image%20(7).jpg" alt="Photo 7"></a>
+<a href="images/your-image%20(8).jpg" class="glightbox"><img src="images/your-image%20(8).jpg" alt="Photo 8"></a>
+<a href="images/your-image%20(9).jpg" class="glightbox"><img src="images/your-image%20(9).jpg" alt="Photo 9"></a>
+<a href="images/your-image%20(10).jpg" class="glightbox"><img src="images/your-image%20(10).jpg" alt="Photo 10"></a>
+<a href="images/your-image%20(11).jpg" class="glightbox"><img src="images/your-image%20(11).jpg" alt="Photo 11"></a>
+<a href="images/your-image%20(12).jpg" class="glightbox"><img src="images/your-image%20(12).jpg" alt="Photo 12"></a>
+<a href="images/your-image%20(13).jpg" class="glightbox"><img src="images/your-image%20(13).jpg" alt="Photo 13"></a>
+<a href="images/your-image%20(14).jpg" class="glightbox"><img src="images/your-image%20(14).jpg" alt="Photo 14"></a>
+<a href="images/your-image%20(15).jpg" class="glightbox"><img src="images/your-image%20(15).jpg" alt="Photo 15"></a>
+<a href="images/your-image%20(16).jpg" class="glightbox"><img src="images/your-image%20(16).jpg" alt="Photo 16"></a>
+<a href="images/your-image%20(17).jpg" class="glightbox"><img src="images/your-image%20(17).jpg" alt="Photo 17"></a>
+<a href="images/your-image%20(18).jpg" class="glightbox"><img src="images/your-image%20(18).jpg" alt="Photo 18"></a>
+<a href="images/your-image%20(19).jpg" class="glightbox"><img src="images/your-image%20(19).jpg" alt="Photo 19"></a>
+<a href="images/your-image%20(20).jpg" class="glightbox"><img src="images/your-image%20(20).jpg" alt="Photo 20"></a>
+<a href="images/your-image%20(21).jpg" class="glightbox"><img src="images/your-image%20(21).jpg" alt="Photo 21"></a>
+<a href="images/your-image%20(22).jpg" class="glightbox"><img src="images/your-image%20(22).jpg" alt="Photo 22"></a>
+<a href="images/your-image%20(23).jpg" class="glightbox"><img src="images/your-image%20(23).jpg" alt="Photo 23"></a>
+<a href="images/your-image%20(24).jpg" class="glightbox"><img src="images/your-image%20(24).jpg" alt="Photo 24"></a>
+<a href="images/your-image%20(25).jpg" class="glightbox"><img src="images/your-image%20(25).jpg" alt="Photo 25"></a>
+<a href="images/your-image%20(26).jpg" class="glightbox"><img src="images/your-image%20(26).jpg" alt="Photo 26"></a>
+<a href="images/your-image%20(27).jpg" class="glightbox"><img src="images/your-image%20(27).jpg" alt="Photo 27"></a>
+<a href="images/your-image%20(28).jpg" class="glightbox"><img src="images/your-image%20(28).jpg" alt="Photo 28"></a>
+<a href="images/your-image%20(29).jpg" class="glightbox"><img src="images/your-image%20(29).jpg" alt="Photo 29"></a>
+<a href="images/your-image%20(30).jpg" class="glightbox"><img src="images/your-image%20(30).jpg" alt="Photo 30"></a>
+<a href="images/your-image%20(31).jpg" class="glightbox"><img src="images/your-image%20(31).jpg" alt="Photo 31"></a>
 
 </div>
 
@@ -104,6 +115,15 @@
 <div id="img29" class="modal"><a href="#"><img src="images/your-image%20(29).jpg" alt="Photo 29"></a></div>
 <div id="img30" class="modal"><a href="#"><img src="images/your-image%20(30).jpg" alt="Photo 30"></a></div>
 <div id="img31" class="modal"><a href="#"><img src="images/your-image%20(31).jpg" alt="Photo 31"></a></div>
+
+  <footer style="text-align:center; padding:20px; font-size:14px;">
+  © 2025 Yigit Arisoy · <a href="https://www.instagram.com/yigitarsy" target="_blank">Instagram</a>
+</footer>
+  <a href="#" style="position:fixed; bottom:20px; right:20px; background:black; color:white; padding:10px 15px; text-decoration:none; border-radius:5px; opacity:0.7;">Top</a>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  const lightbox = GLightbox({ selector: '.glightbox' });
+</script>
 
 </body>
 </html>
