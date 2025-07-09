@@ -5,21 +5,25 @@
   <title>Yigit Arisoy</title>
   <style>
     body { margin: 0; font-family: sans-serif; background: white; color: black; }
-    header { text-align: center; padding: 20px; font-size: 24px; font-weight: bold; }
-    nav { text-align: center; margin-bottom: 20px; }
+    header { display: flex; align-items: center; padding: 20px; font-size: 24px; font-weight: bold; }
+    header img { height: 50px; margin-right: 15px; }
+    nav { margin-left: auto; }
     nav a { margin: 0 10px; text-decoration: none; color: black; font-size: 16px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; padding: 10px; }
     .grid img { width: 100%; height: auto; display: block; }
+    .contact-page { text-align: center; padding: 50px; font-size: 18px; }
   </style>
 </head>
 <body>
 
-<header>Yigit Arisoy</header>
-<nav>
-  <a href="#">Home</a>
-  <a href="https://www.instagram.com/yigitarsy" target="_blank">Instagram</a>
-  <a href="mailto:yigittarisoy@gmail.com">Contact</a>
-</nav>
+<header>
+  <img src="/images/logo.png" alt="Logo">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="https://www.instagram.com/yigitarsy" target="_blank">Instagram</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
 
 <div class="grid">
   <img src="/images/your-image%20(1).jpg" alt="Photo 1">
