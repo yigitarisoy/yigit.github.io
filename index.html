@@ -1,149 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yigit Arisoy</title>
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/logo.png" sizes="64x64" />
+  <link rel="icon" type="image/png" href="images/logo.png" sizes="64x64">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <!-- GLightbox CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
   <style>
-    /* Smooth page fade-in */
+    /* CSS Variables for light/dark */
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --header-bg: #ffffff;
+      --link: #000000;
+      --card-shadow: rgba(0,0,0,0.1);
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #f0f0f0;
+      --header-bg: #1e1e1e;
+      --link: #f0f0f0;
+      --card-shadow: rgba(0,0,0,0.4);
+    }
+    /* Base styles */
     body {
-      margin: 0; padding: 0;
-      font-family: 'Inter', sans-serif;
-      opacity: 0; transition: opacity 0.5s ease-in;
-      background: #fff; color: #000;
-      scroll-behavior: smooth;
+      margin:0; padding:0;
+      font-family:'Inter',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      opacity:0; transition:opacity 0.5s ease-in;
+      scroll-behavior:smooth;
     }
-    body.loaded { opacity: 1; }
-    /* Loader overlay */
-    #loader {
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #fff; z-index: 9999;
-      display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.5s ease;
-    }
-    #loader.hide { opacity: 0; pointer-events: none; }
+    body.loaded { opacity:1; }
+    /* Loader */
+    #loader { position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg);
+      display:flex; align-items:center; justify-content:center; z-index:9999;
+      transition:opacity 0.5s ease; }
+    #loader.hide { opacity:0; pointer-events:none; }
     /* Header */
     header {
-      display: flex; align-items: center;
-      padding: 20px;
-      background: #fff;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; padding:20px;
+      background:var(--header-bg);
+      box-shadow:0 2px 4px var(--card-shadow);
+      position:sticky; top:0; z-index:1000;
     }
-    .logo {
-      height: 120px;
-      margin-right: 20px;
+    .logo { height:80px; }
+    nav { display:flex; gap:12px; align-items:center; }
+    nav a, #dark-toggle {
+      text-decoration:none; color:var(--link); font-weight:600;
+      background:none; border:none; cursor:pointer;
+      transition:opacity 0.3s;
+      font-size:14px;
     }
-    nav a {
-      margin: 0 12px; text-decoration: none;
-      color: #000; font-weight: 600;
-      transition: opacity 0.3s;
-    }
-    nav a:hover { opacity: 0.5; }
+    nav a:hover, #dark-toggle:hover { opacity:0.7; }
     /* Gallery grid */
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 10px; padding: 10px;
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+      gap:10px; padding:10px;
     }
-    .gallery a {
-      overflow: hidden;
-    }
+    .gallery a { overflow:hidden; }
     .gallery a img {
-      width: 100%; height: 400px;
-      object-fit: cover;
-      display: block;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, filter 0.3s ease;
+      width:100%; height:350px;
+      object-fit:cover;
+      display:block;
+      box-shadow:0 4px 10px var(--card-shadow);
+      transition:transform 0.3s ease,filter 0.3s ease;
     }
-    .gallery a img:hover {
-      transform: scale(1.05);
-      filter: grayscale(80%);
-    }
+    .gallery a img:hover { transform:scale(1.05); filter:grayscale(80%); }
+    /* Fade-in scroll */
+    .fade-in { opacity:0; transform:translateY(20px);
+      transition:opacity 0.6s ease-out,transform 0.6s ease-out; }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
     /* Footer */
-    footer {
-      text-align: center; padding: 20px;
-      font-size: 14px; color: #555;
-      border-top: 1px solid #eee;
-    }
-    /* Back-to-top button */
+    footer { text-align:center; padding:20px; font-size:14px; border-top:1px solid var(--card-shadow); }
+    /* Back-to-top */
     #back-to-top {
-      position: fixed; bottom: 20px; right: 20px;
-      background: #000; color: #fff;
-      padding: 10px 15px; border-radius: 4px;
-      text-decoration: none; opacity: 0.7;
-      transition: opacity 0.3s;
-      font-size: 14px;
+      position:fixed; bottom:20px; right:20px;
+      background:var(--link); color:var(--bg);
+      padding:10px 15px; border-radius:4px;
+      text-decoration:none; opacity:0.7; font-size:14px;
+      transition:opacity 0.3s;
     }
-    #back-to-top:hover { opacity: 1; }
+    #back-to-top:hover { opacity:1; }
+    /* Responsive */
+    @media(max-width:768px) {
+      .gallery { grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); }
+      .gallery a img { height:280px; }
+    }
+    @media(max-width:480px) {
+      header { flex-direction:column; align-items:center; }
+      .logo { height:60px; margin-bottom:10px; }
+      .gallery { grid-template-columns:1fr; }
+      .gallery a img { height:auto; aspect-ratio:4/3; }
+    }
   </style>
 </head>
 <body>
-  <!-- Loader -->
-  <div id="loader"><img src="images/logo.png" alt="Loading" width="80" /></div>
-  <!-- Header -->
+  <div id="loader"><img src="images/logo.png" alt="Loading" width="80"></div>
   <header>
-    <img src="images/logo.png" alt="Yigit Arisoy" class="logo" />
+    <img src="images/logo.png" alt="Yigit Arisoy" class="logo">
     <nav>
       <a href="index.html">Home</a>
       <a href="https://instagram.com/yigitarsy" target="_blank">Instagram</a>
       <a href="contact.html">Contact</a>
+      <button id="dark-toggle">🌙</button>
     </nav>
   </header>
-  <!-- Gallery -->
   <main>
     <div class="gallery">
-      <a href="images/your-image%20(1).jpg" class="glightbox"><img src="images/your-image-thumb%20(1).jpg" alt="Photo 1" loading="lazy"></a>
-      <a href="images/your-image%20(2).jpg" class="glightbox"><img src="images/your-image-thumb%20(2).jpg" alt="Photo 2" loading="lazy"></a>
-      <a href="images/your-image%20(3).jpg" class="glightbox"><img src="images/your-image-thumb%20(3).jpg" alt="Photo 3" loading="lazy"></a>
-      <a href="images/your-image%20(4).jpg" class="glightbox"><img src="images/your-image-thumb%20(4).jpg" alt="Photo 4" loading="lazy"></a>
-      <a href="images/your-image%20(5).jpg" class="glightbox"><img src="images/your-image-thumb%20(5).jpg" alt="Photo 5" loading="lazy"></a>
-      <a href="images/your-image%20(6).jpg" class="glightbox"><img src="images/your-image-thumb%20(6).jpg" alt="Photo 6" loading="lazy"></a>
-      <a href="images/your-image%20(7).jpg" class="glightbox"><img src="images/your-image-thumb%20(7).jpg" alt="Photo 7" loading="lazy"></a>
-      <a href="images/your-image%20(8).jpg" class="glightbox"><img src="images/your-image-thumb%20(8).jpg" alt="Photo 8" loading="lazy"></a>
-      <a href="images/your-image%20(9).jpg" class="glightbox"><img src="images/your-image-thumb%20(9).jpg" alt="Photo 9" loading="lazy"></a>
-      <a href="images/your-image%20(10).jpg" class="glightbox"><img src="images/your-image-thumb%20(10).jpg" alt="Photo 10" loading="lazy"></a>
-      <a href="images/your-image%20(11).jpg" class="glightbox"><img src="images/your-image-thumb%20(11).jpg" alt="Photo 11" loading="lazy"></a>
-      <a href="images/your-image%20(12).jpg" class="glightbox"><img src="images/your-image-thumb%20(12).jpg" alt="Photo 12" loading="lazy"></a>
-      <a href="images/your-image%20(13).jpg" class="glightbox"><img src="images/your-image-thumb%20(13).jpg" alt="Photo 13" loading="lazy"></a>
-      <a href="images/your-image%20(14).jpg" class="glightbox"><img src="images/your-image-thumb%20(14).jpg" alt="Photo 14" loading="lazy"></a>
-      <a href="images/your-image%20(15).jpg" class="glightbox"><img src="images/your-image-thumb%20(15).jpg" alt="Photo 15" loading="lazy"></a>
-      <a href="images/your-image%20(16).jpg" class="glightbox"><img src="images/your-image-thumb%20(16).jpg" alt="Photo 16" loading="lazy"></a>
-      <a href="images/your-image%20(17).jpg" class="glightbox"><img src="images/your-image-thumb%20(17).jpg" alt="Photo 17" loading="lazy"></a>
-      <a href="images/your-image%20(18).jpg" class="glightbox"><img src="images/your-image-thumb%20(18).jpg" alt="Photo 18" loading="lazy"></a>
-      <a href="images/your-image%20(19).jpg" class="glightbox"><img src="images/your-image-thumb%20(19).jpg" alt="Photo 19" loading="lazy"></a>
-      <a href="images/your-image%20(20).jpg" class="glightbox"><img src="images/your-image-thumb%20(20).jpg" alt="Photo 20" loading="lazy"></a>
-      <a href="images/your-image%20(21).jpg" class="glightbox"><img src="images/your-image-thumb%20(21).jpg" alt="Photo 21" loading="lazy"></a>
-      <a href="images/your-image%20(22).jpg" class="glightbox"><img src="images/your-image-thumb%20(22).jpg" alt="Photo 22" loading="lazy"></a>
-      <a href="images/your-image%20(23).jpg" class="glightbox"><img src="images/your-image-thumb%20(23).jpg" alt="Photo 23" loading="lazy"></a>
-      <a href="images/your-image%20(24).jpg" class="glightbox"><img src="images/your-image-thumb%20(24).jpg" alt="Photo 24" loading="lazy"></a>
-      <a href="images/your-image%20(25).jpg" class="glightbox"><img src="images/your-image-thumb%20(25).jpg" alt="Photo 25" loading="lazy"></a>
-      <a href="images/your-image%20(26).jpg" class="glightbox"><img src="images/your-image-thumb%20(26).jpg" alt="Photo 26" loading="lazy"></a>
-      <a href="images/your-image%20(27).jpg" class="glightbox"><img src="images/your-image-thumb%20(27).jpg" alt="Photo 27" loading="lazy"></a>
-      <a href="images/your-image%20(28).jpg" class="glightbox"><img src="images/your-image-thumb%20(28).jpg" alt="Photo 28" loading="lazy"></a>
-      <a href="images/your-image%20(29).jpg" class="glightbox"><img src="images/your-image-thumb%20(29).jpg" alt="Photo 29" loading="lazy"></a>
-      <a href="images/your-image%20(30).jpg" class="glightbox"><img src="images/your-image-thumb%20(30).jpg" alt="Photo 30" loading="lazy"></a>
-      <a href="images/your-image%20(31).jpg" class="glightbox"><img src="images/your-image-thumb%20(31).jpg" alt="Photo 31" loading="lazy"></a>
+      <!-- 31 Images -->
+      "+
+      Array.from({length:31},(_,i)=>
+        `<a href="images/your-image%20(${i+1}).jpg" class="glightbox fade-in"><img src="images/your-image-thumb%20(${i+1}).jpg" alt="Photo ${i+1}" loading="lazy"></a>`
+      ).join("\n      ")+
+      "
     </div>
   </main>
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 Yigit Arisoy · <a href="https://instagram.com/yigitarsy" target="_blank">Instagram</a>
-  </footer>
-  <!-- Back to top -->
+  <footer>&copy; 2025 Yigit Arisoy · <a href="https://instagram.com/yigitarsy" target="_blank">Instagram</a></footer>
   <a id="back-to-top" href="#top">Top</a>
-  <!-- GLightbox JS -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
-    const lightbox = GLightbox({ selector: '.glightbox' });
-    window.addEventListener('load', () => {
-      document.getElementById('loader').classList.add('hide');
-      document.body.classList.add('loaded');
+    // GLightbox
+    const lightbox = GLightbox({ selector:'.glightbox' });
+    // Loader & fade-in
+    window.addEventListener('load',()=>{ document.getElementById('loader').classList.add('hide'); document.body.classList.add('loaded'); });
+    // IntersectionObserver for fade
+    const observer=new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target);} }); },{threshold:0.1});
+    document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+    // Back-to-top
+    document.getElementById('back-to-top').addEventListener('click',e=>{ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+    // Dark mode toggle
+    const toggle=document.getElementById('dark-toggle');
+    toggle.addEventListener('click',()=>{
+      const theme=document.documentElement.getAttribute('data-theme')=== 'dark'?'light':'dark';
+      document.documentElement.setAttribute('data-theme',theme);
+      toggle.textContent = theme==='dark'?'☀️':'🌙';
     });
   </script>
 </body>
