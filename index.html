@@ -59,32 +59,34 @@ header {
   gap: 2.2rem;
   max-width: none;
   margin: 0;
+  height: 38px;
 }
 .logo {
-  height: 120px;
+  height: 38px;
   margin-right: 2.2rem;
   flex-shrink: 0;
 }
 nav {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
-  gap: 1.6rem;
+  align-items: flex-start;
+  gap: 1.2rem;
+  height: 38px;
 }
 nav a {
   text-decoration: none;
   color: var(--fg);
-  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.97rem;
-  letter-spacing: 0.13em;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
   position: relative;
-  padding: 0 0.2em 0.1em 0.2em;
+  padding: 0 0.3em 0 0.3em;
   border-radius: 0;
   background: none;
   box-shadow: none;
   transition: color .18s, border .18s;
+  line-height: 38px;
 }
 nav a.active {
   color: var(--fg);
@@ -97,6 +99,9 @@ nav a.active::after {
   background: var(--fg);
   margin-top: 2px;
   border-radius: 1px;
+  position: absolute;
+  left: 0;
+  bottom: 4px;
 }
 nav a:hover {
   color: var(--fg-alt);
