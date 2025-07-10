@@ -243,9 +243,11 @@ nav a:not(.active):hover::after {
   <script defer src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script defer>
     // Loader fade-out
-    window.addEventListener('load',()=> document.getElementById('loader').style.display='none');
-    // Lightbox init
-    GLightbox({ selector: '.glightbox' });
+    window.addEventListener('load',()=> {
+      document.getElementById('loader').style.display='none';
+      // Lightbox init (ensure after DOM and script loaded)
+      GLightbox({ selector: '.glightbox' });
+    });
     // Dark-mode toggle
     const btn = document.getElementById('theme-toggle');
     function setThemeIcon(theme) {
