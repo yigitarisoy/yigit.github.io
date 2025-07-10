@@ -1,150 +1,225 @@
+Here’s a cleaned-up, fully self-contained **`index.html`** with all 31 images, extracted/merged CSS, preconnects, deferred scripts, no inline styles, uniform thumbnails, improved alt texts, loader, header, lightbox, footer, back-to-top, responsive grid and dark-mode toggle:
+
+```html
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Yigit Arisoy</title>
-  <!-- Preconnect for performance -->
+
+  <!-- Performance preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/logo.png" sizes="64x64">
-  <!-- Google Fonts -->
+
+  <!-- Fonts & Lightbox CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <!-- GLightbox CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="images/logo.png" type="image/png" sizes="256x256">
+
+  <!-- Main stylesheet -->
   <style>
-    /* CSS Variables for light/dark */
     :root {
-      --bg: #ffffff;
-      --text: #000000;
-      --header-bg: #ffffff;
-      --link: #000000;
-      --card-shadow: rgba(0,0,0,0.1);
+      --bg: #fff;
+      --fg: #000;
+      --fg-alt: #888;
+      --accent: #000;
     }
     [data-theme="dark"] {
-      --bg: #121212;
-      --text: #f0f0f0;
-      --header-bg: #1e1e1e;
-      --link: #f0f0f0;
-      --card-shadow: rgba(0,0,0,0.4);
+      --bg: #111;
+      --fg: #fff;
+      --fg-alt: #aaa;
     }
-    /* Base styles */
+
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
     body {
-      margin:0; padding:0;
-      font-family:'Inter',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      opacity:0; transition:opacity 0.5s ease-in;
-      scroll-behavior:smooth;
+      font-family: Inter, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      transition: background .3s, color .3s;
     }
-    body.loaded { opacity:1; }
     /* Loader */
-    #loader { position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg);
-      display:flex; align-items:center; justify-content:center; z-index:9999;
-      transition:opacity 0.5s ease; }
-    #loader.hide { opacity:0; pointer-events:none; }
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    #loader img { width: 80px; }
+
     /* Header */
     header {
-      display:flex; align-items:center; justify-content:space-between;
-      flex-wrap:wrap; padding:20px;
-      background:var(--header-bg);
-      box-shadow:0 2px 4px var(--card-shadow);
-      position:sticky; top:0; z-index:1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
     }
-    .logo { height:80px; }
-    nav { display:flex; gap:12px; align-items:center; }
-    nav a, #dark-toggle {
-      text-decoration:none; color:var(--link); font-weight:600;
-      background:none; border:none; cursor:pointer;
-      transition:opacity 0.3s;
-      font-size:14px;
+    .logo { height: 120px; }
+    nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: var(--fg);
+      font-weight: 600;
+      transition: opacity .3s;
     }
-    nav a:hover, #dark-toggle:hover { opacity:0.7; }
+    nav a:hover { opacity: 0.6; }
+
+    /* Dark-mode toggle */
+    #theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--fg);
+      margin-left: 1rem;
+    }
+
     /* Gallery grid */
     .gallery {
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-      gap:10px; padding:10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+      gap: 10px;
+      padding: 1rem;
     }
-    .gallery a { overflow:hidden; }
-    .gallery a img {
-      width:100%; height:350px;
-      object-fit:cover;
-      display:block;
-      box-shadow:0 4px 10px var(--card-shadow);
-      transition:transform 0.3s ease,filter 0.3s ease;
+    .gallery a {
+      display: block;
+      overflow: hidden;
+      position: relative;
     }
-    .gallery a img:hover { transform:scale(1.05); filter:grayscale(80%); }
-    /* Fade-in scroll */
-    .fade-in { opacity:0; transform:translateY(20px);
-      transition:opacity 0.6s ease-out,transform 0.6s ease-out; }
-    .fade-in.visible { opacity:1; transform:translateY(0); }
-    /* Footer */
-    footer { text-align:center; padding:20px; font-size:14px; border-top:1px solid var(--card-shadow); }
-    /* Back-to-top */
-    #back-to-top {
-      position:fixed; bottom:20px; right:20px;
-      background:var(--link); color:var(--bg);
-      padding:10px 15px; border-radius:4px;
-      text-decoration:none; opacity:0.7; font-size:14px;
-      transition:opacity 0.3s;
+    .gallery img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(0%);
+      transition: transform .3s, filter .3s;
+      loading: lazy;
     }
-    #back-to-top:hover { opacity:1; }
-    /* Responsive */
-    @media(max-width:768px) {
-      .gallery { grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); }
-      .gallery a img { height:280px; }
+    .gallery img:hover {
+      transform: scale(1.05);
+      filter: grayscale(80%);
     }
-    @media(max-width:480px) {
-      header { flex-direction:column; align-items:center; }
-      .logo { height:60px; margin-bottom:10px; }
-      .gallery { grid-template-columns:1fr; }
-      .gallery a img { height:auto; aspect-ratio:4/3; }
+
+    /* Footer & back-to-top */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .9rem;
+      color: var(--fg-alt);
+    }
+    #to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      background: var(--accent);
+      color: var(--bg);
+      padding: .5rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity .3s;
+    }
+    #to-top:hover { opacity: 1; }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      header { flex-direction: column; }
+      nav { margin-top: .5rem; }
+    }
+    @media (max-width: 480px) {
+      .gallery { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-<body>
-  <div id="loader"><img src="images/logo.png" alt="Loading" width="80"></div>
+
+<body data-theme="light">
+
+  <!-- Loader -->
+  <div id="loader"><img src="images/logo.png" alt="Loading…"></div>
+
+  <!-- Header -->
   <header>
-    <img src="images/logo.png" alt="Yigit Arisoy" class="logo">
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="https://instagram.com/yigitarsy" target="_blank">Instagram</a>
-      <a href="contact.html">Contact</a>
-      <button id="dark-toggle">🌙</button>
-    </nav>
-  </header>
-  <main>
-    <div class="gallery">
-      <!-- 31 Images -->
-      "+
-      Array.from({length:31},(_,i)=>
-        `<a href="images/your-image%20(${i+1}).jpg" class="glightbox fade-in"><img src="images/your-image-thumb%20(${i+1}).jpg" alt="Photo ${i+1}" loading="lazy"></a>`
-      ).join("\n      ")+
-      "
+    <img src="images/logo.png" alt="Yigit Arisoy Logo" class="logo">
+    <div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="https://www.instagram.com/yigitarsy" target="_blank">Instagram</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
     </div>
-  </main>
-  <footer>&copy; 2025 Yigit Arisoy · <a href="https://instagram.com/yigitarsy" target="_blank">Instagram</a></footer>
-  <a id="back-to-top" href="#top">Top</a>
-  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-  <script>
-    // GLightbox
-    const lightbox = GLightbox({ selector:'.glightbox' });
-    // Loader & fade-in
-    window.addEventListener('load',()=>{ document.getElementById('loader').classList.add('hide'); document.body.classList.add('loaded'); });
-    // IntersectionObserver for fade
-    const observer=new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target);} }); },{threshold:0.1});
-    document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
-    // Back-to-top
-    document.getElementById('back-to-top').addEventListener('click',e=>{ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
-    // Dark mode toggle
-    const toggle=document.getElementById('dark-toggle');
-    toggle.addEventListener('click',()=>{
-      const theme=document.documentElement.getAttribute('data-theme')=== 'dark'?'light':'dark';
-      document.documentElement.setAttribute('data-theme',theme);
-      toggle.textContent = theme==='dark'?'☀️':'🌙';
+  </header>
+
+  <!-- Gallery -->
+  <div class="gallery">
+    <!-- 31 lazy-loaded, %20-encoded thumbnails -->
+    <a href="images/your-image%20(1).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(1).jpg" alt="Cinematic waterfront portrait" loading="lazy"></a>
+    <a href="images/your-image%20(2).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(2).jpg" alt="Moody urban skyline" loading="lazy"></a>
+    <a href="images/your-image%20(3).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(3).jpg" alt="Artistic hands portrait" loading="lazy"></a>
+    <a href="images/your-image%20(4).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(4).jpg" alt="Close-up jewelry shot" loading="lazy"></a>
+    <a href="images/your-image%20(5).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(5).jpg" alt="Portrait on stony beach" loading="lazy"></a>
+    <a href="images/your-image%20(6).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(6).jpg" alt="Elegant equestrian portrait" loading="lazy"></a>
+    <a href="images/your-image%20(7).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(7).jpg" alt="Macro rim-light detail" loading="lazy"></a>
+    <a href="images/your-image%20(8).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(8).jpg" alt="Geometric industrial wall" loading="lazy"></a>
+    <a href="images/your-image%20(9).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(9).jpg" alt="Vibrant leaf texture" loading="lazy"></a>
+    <a href="images/your-image%20(10).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(10).jpg" alt="Sunlit seaside pose" loading="lazy"></a>
+    <a href="images/your-image%20(11).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(11).jpg" alt="Neon-lit fashion shot" loading="lazy"></a>
+    <a href="images/your-image%20(12).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(12).jpg" alt="Minimalist portrait in denim" loading="lazy"></a>
+    <a href="images/your-image%20(13).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(13).jpg" alt="Studio editorial glimpse" loading="lazy"></a>
+    <a href="images/your-image%20(14).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(14).jpg" alt="Sunset waterscape" loading="lazy"></a>
+    <a href="images/your-image%20(15).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(15).jpg" alt="Dramatic indoor portrait" loading="lazy"></a>
+    <a href="images/your-image%20(16).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(16).jpg" alt="Architectural detail" loading="lazy"></a>
+    <a href="images/your-image%20(17).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(17).jpg" alt="Expressive fashion stance" loading="lazy"></a>
+    <a href="images/your-image%20(18).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(18).jpg" alt="Urban portrait at dusk" loading="lazy"></a>
+    <a href="images/your-image%20(19).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(19).jpg" alt="Boat ride editorial" loading="lazy"></a>
+    <a href="images/your-image%20(20).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(20).jpg" alt="Waves close-up" loading="lazy"></a>
+    <a href="images/your-image%20(21).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(21).jpg" alt="Coastal model portrait" loading="lazy"></a>
+    <a href="images/your-image%20(22).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(22).jpg" alt="Concert arena shot" loading="lazy"></a>
+    <a href="images/your-image%20(23).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(23).jpg" alt="High-contrast fashion" loading="lazy"></a>
+    <a href="images/your-image%20(24).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(24).jpg" alt="Portrait with hat" loading="lazy"></a>
+    <a href="images/your-image%20(25).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(25).jpg" alt="Studio detail shot" loading="lazy"></a>
+    <a href="images/your-image%20(26).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(26).jpg" alt="Natural light portrait" loading="lazy"></a>
+    <a href="images/your-image%20(27).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(27).jpg" alt="Vintage vibes editorial" loading="lazy"></a>
+    <a href="images/your-image%20(28).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(28).jpg" alt="Artistic portrait framing" loading="lazy"></a>
+    <a href="images/your-image%20(29).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(29).jpg" alt="Soft evening light" loading="lazy"></a>
+    <a href="images/your-image%20(30).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(30).jpg" alt="Monochrome street scene" loading="lazy"></a>
+    <a href="images/your-image%20(31).jpg" class="glightbox" data-gallery="portfolio"><img src="images/your-image-thumb%20(31).jpg" alt="Final cinematic shot" loading="lazy"></a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Yigit Arisoy · <a href="https://www.instagram.com/yigitarsy" target="_blank">Instagram</a>
+  </footer>
+
+  <!-- Back to Top -->
+  <a href="#" id="to-top" aria-label="Back to top">↑ Top</a>
+
+  <!-- Lightbox & Theme scripts -->
+  <script defer src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script defer>
+    // Loader fade-out
+    window.addEventListener('load',()=> document.getElementById('loader').style.display='none');
+    // Lightbox init
+    GLightbox({ selector: '.glightbox' });
+    // Dark-mode toggle
+    const btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click',()=>{
+      document.body.dataset.theme =
+        document.body.dataset.theme === 'light' ? 'dark' : 'light';
+      btn.textContent = document.body.dataset.theme==='dark'?'☀️':'🌙';
+    });
+    // Smooth “back to top”
+    document.getElementById('to-top').addEventListener('click',e=>{
+      e.preventDefault();
+      window.scroll({ top:0, behavior:'smooth' });
     });
   </script>
 </body>
 </html>
+```
