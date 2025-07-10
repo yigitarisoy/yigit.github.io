@@ -53,10 +53,10 @@
     /* Header */
 header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
-  padding: 1.2rem 0 0 2.2rem;
-  gap: 2.2rem;
+  padding: 0 0 0 2.2rem;
+  gap: 1.2rem;
   max-width: none;
   margin: 0;
   height: 100px;
@@ -69,24 +69,24 @@ header {
 nav {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  gap: 1.2rem;
-  height: 38px;
+  align-items: center;
+  gap: 0.7rem;
+  height: 100px;
 }
 nav a {
   text-decoration: none;
   color: var(--fg);
   font-family: 'Inter', Arial, sans-serif;
   font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.04em;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
   position: relative;
-  padding: 0 0.3em 0 0.3em;
+  padding: 0 0.18em 0 0.18em;
   border-radius: 0;
   background: none;
   box-shadow: none;
   transition: color .18s, border .18s;
-  line-height: 38px;
+  line-height: 100px;
 }
 nav a.active {
   color: var(--fg);
@@ -112,12 +112,12 @@ nav a:not(.active):hover::after {
 #theme-toggle {
   background: none;
   border: none;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   cursor: pointer;
   color: var(--fg);
-  margin-left: 2rem;
-  padding: 0 0.3em;
-  line-height: 1;
+  margin-left: 1.1rem;
+  padding: 0 0.2em;
+  line-height: 100px;
   vertical-align: middle;
   filter: grayscale(100%);
 }
